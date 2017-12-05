@@ -1,0 +1,1 @@
+采用curator实现动态监听zookeeper节点变化做配置管理

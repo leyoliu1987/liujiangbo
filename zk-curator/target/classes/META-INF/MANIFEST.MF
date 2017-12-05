@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: zk-curator
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: leyol
+Implementation-Vendor-Id: com.sunlands
+Build-Jdk: 1.8.0_144
+Implementation-URL: http://projects.spring.io/spring-boot/zk-curator/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
