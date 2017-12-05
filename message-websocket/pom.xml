@@ -1,0 +1,303 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sunlands</groupId>
+	<artifactId>message-websocket</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.9.RELEASE</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<slf4j.version>1.7.24</slf4j.version>
+		<fastjson.version>1.2.37</fastjson.version>
+		<logback-classic.version>1.1.11</logback-classic.version>
+		<logback-ext-spring.version>0.1.4</logback-ext-spring.version>
+		<jcl-over-slf4j.version>1.7.20</jcl-over-slf4j.version>
+		<commons-lang3.version>3.4</commons-lang3.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- 使用spring boot框架 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+
+		<!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.logback-extensions</groupId>
+			<artifactId>logback-ext-spring</artifactId>
+			<version>${logback-ext-spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>23.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.1.17.Final</version>
+		</dependency>
+
+
+		<!--spring 相关 -->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-recipes</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<!-- 本地开发环境 -->
+			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources/dev</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<!-- 测试环境 -->
+			<id>test</id>
+			<properties>
+				<profiles.active>test</profiles.active>
+			</properties>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources/test</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<!-- 生产环境 -->
+			<id>prod</id>
+			<properties>
+				<profiles.active>prod</profiles.active>
+			</properties>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources/prod</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<!-- 预生产环境 -->
+			<id>pre-prod</id>
+			<properties>
+				<profiles.active>pre-prod</profiles.active>
+			</properties>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources/pre-prod</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+
+	</profiles>
+
+
+	<build>
+		<finalName>message-websocket-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>distribution/message-websocket-${project.version}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-config</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<outputDirectory>distribution/message-websocket-${project.version}/conf</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources/${profiles.active}</directory>
+									<includes>
+										<include>*.properties</include>
+									</includes>
+								</resource>
+								<resource>
+									<directory>src/main/resources</directory>
+									<includes>
+										<include>*.xml</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-sh</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<outputDirectory>distribution/message-websocket-${project.version}/bin</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources/bin</directory>
+									<includes>
+										<include>*.sh</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-dist-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<outputDirectory>distribution/message-websocket-${project.version}/lib</outputDirectory>
+							<resources>
+								<resource>
+									<directory>target</directory>
+									<includes>
+										<include>*.jar</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

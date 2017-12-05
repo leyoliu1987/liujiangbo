@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date [%-5level %logger{80}] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <substitutionProperty name="log.base" value="logs/dragnet-message-logs"/>
+
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/stdout.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/stdout.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+              <!--   <maxHistory>15</maxHistory> -->
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date [%thread][IP:%X{ip}|USER:%X{user}][%-5level %logger{80}] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="rollingFile"/>
+    </root>
+
+    <!-- <logger name="com.sunlands" level="DEBUG">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="rollingFile"/>
+    </logger> -->
+</configuration>
